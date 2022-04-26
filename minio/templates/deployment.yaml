@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+{{ include "minio.labels" .|indent 2 }}
+  name: {{ .Values.name|quote}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.name|quote}}
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name|quote}}
+    spec:
+      volumes:
+      - name: storage
+        persistentVolumeClaim:
+          claimName: "{{ .Values.name}}-pvc"
+      containers:
+      - image: {{.Values.image}}
+        imagePullPolicy: {{ .Values.imagePullPolicy|quote}}
+        name: {{ .Values.name|quote}}
+{{ include "minio.args" .|indent 8}}
+        volumeMounts:
+        - mountPath: {{ .Values.data_path | quote}}
+          name: storage
+{{ include "minio.env" .|indent 8}}
+{{ include "minio.resources" .|indent 8}}

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: {{ .Values.name|quote }}
+  name: {{ .Values.name|quote }}
+spec:
+  ports:
+  {{- range .Values.ports }}
+  - name: "{{.}}-{{.}}"
+    port: {{.}}
+    protocol: TCP
+    targetPort: {{.}}
+  {{- end }}
+  selector:
+    app: {{ .Values.name|quote }}
+  type: LoadBalancer
