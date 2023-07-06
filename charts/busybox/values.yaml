@@ -1,0 +1,11 @@
+labels:
+  run: busybox
+  name: busybox
+
+container:
+  image: ubuntu
+  tag: latest
+  imagePullPolicy: "IfNotPresent"
+  command:
+    - sleep
+    - infinity
