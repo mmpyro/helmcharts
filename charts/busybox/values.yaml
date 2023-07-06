@@ -1,5 +1,4 @@
 labels:
-  run: busybox
   name: busybox
 
 container:
