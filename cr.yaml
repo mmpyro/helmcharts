@@ -1,0 +1,6 @@
+## Reference: https://github.com/helm/chart-releaser
+index-path: "./index.yaml"
+target-branch: main
+validate-maintainers: false
+chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
